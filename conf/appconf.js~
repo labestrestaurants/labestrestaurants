@@ -1,0 +1,919 @@
+APP_config = {
+    io: {
+
+        Runtime : {
+            id: 'Runtime',
+            type: 'WebSocket',
+            url: 'ws://170.179.41.150',
+            port: '8080',
+            protocol: 'runtime',
+            parser: 'Server'
+        },
+
+        Alarms : {
+            id: 'Alarms',
+            type: 'WebSocket',
+            url: 'ws://170.179.41.150',
+            port: '8080',
+            protocol: 'alarms',
+            parser: 'Server'
+        }, 
+
+        // Simulator: {
+        //     id: 'Simulator',
+        //     type: 'Simulator',
+        //     parser: 'Server'
+        // },
+
+    },
+    controllers: {
+
+        Default: {
+            id: 'Default', 
+            availableIO: ''
+        },
+        App: {
+            id: 'App', 
+            availableIO: ''
+        }, 
+        Security: {
+            id: 'Security', 
+            availableIO: 'Runtime'
+        },
+        Configuration: {
+            id: 'Configuration', 
+            availableIO: 'Runtime'
+        },
+        Alarm: {
+            id: 'Alarm', 
+            availableIO: 'Runtime'
+        },
+        Screen: {
+            id: 'Screen', 
+            availableIO: 'Runtime'            
+        }                
+    },
+    logs: {
+        'xstorm-controller-security': {
+            s: { prefix: ''},
+            w: {},
+            e: {}
+        },
+        'xstorm-controller-alarm': {
+            e: {} 
+        },
+        'xstorm-controller-configuration': {
+            s: { prefix: ''},
+            w: {},
+            e: {}
+        },
+        'xstorm-controller-screen': {
+            w: {},
+            e: {}
+        },
+    },
+    routes: {
+                "loginForm": {
+                    path: '/login',
+                    event_prefix: '',
+
+                    controller: 'App',
+                    action: 'loginFormAction'
+                },
+
+                "loginAction": {
+                    path: '',
+                    event_prefix: 'xstorm-view-form:login',
+                    controller: 'Security',
+                    action: 'loginAction'
+                },
+                "logoutAction": {
+                    path: '',
+                    event_prefix: 'xstorm-view-navbar:logout',
+                    controller: 'Security',
+                    action: 'logoutAction'
+                },
+
+                "login": {
+                    path: '',
+                    event_prefix: '',
+                    code: '500',
+                    controller: 'Security',
+                    action: 'loginResponseHandle'
+                },
+                "logout": {
+                    path: '',
+                    event_prefix: '',
+                    code: '500',
+                    controller: 'Security',
+                    action: 'logoutResponseHandle'
+                },
+                "100": {
+                    path: '',
+                    event_prefix: '',
+                    code: '100',
+                    controller: 'Security',
+                    action: 'openComResponseHandle'
+                },
+                //rutas asociadas a la configuracion
+                "iniconfAction": {
+                    path: '',
+                    event_prefix: 'xstorm-view-navbar:iniconf',
+                    controller: 'Configuration',
+                    action: 'iniconfAction'
+                },
+                "iniconf": {
+                    path: '',
+                    event_prefix: '',
+                    code: 'iniconf',
+                    controller: 'Configuration',
+                    action: 'iniconfResponseHandle'
+                },
+
+                "openscreenAction": {
+                    path: '',
+                    event_prefix: 'xstorm-view-navbar:openscreen',
+                    code: '',
+                    controller: 'Screen',
+                    action: 'openScreenAction'
+                },
+
+                "screenconf": {
+                    path: '',
+                    event_prefix: '',
+                    code: 'screenconf',
+                    controller: 'Screen',
+                    action: 'openScreenResponseHandle'
+                },
+                "syncdata": {
+                    path: '',
+                    event_prefix: 'xstorm-view-screen:syncdata',
+                    code: '',
+                    controller: 'Screen',
+                    action: 'syncdataAction'
+                },
+                "runtimepoints": {
+                    path: '',
+                    event_prefix: '',
+                    code: 'runtimepoints',
+                    controller: 'Screen',
+                    action: 'syncdataResponseHandle'
+                },
+
+                "summary": {
+                    path: '',
+                    event_prefix: 'xstorm-view-navbar:summary',
+                    code: '',
+                    controller: 'Screen',
+                    action: 'summaryAction'
+                },
+
+                "summarysyncdata": {
+                    path: '',
+                    event_prefix: 'xstorm-view-summary:syncdata',
+                    code: '',
+                    controller: 'Screen',
+                    action: 'summarySyncDataAction'
+                },
+
+                "digitalsummary": {
+                    path: '',
+                    event_prefix: '',
+                    code: 'digitalsummary',
+                    controller: 'Screen',
+                    action: 'summarySyncDataResponseHandle'
+                },
+
+                "analogicsummary": {
+                    path: '',
+                    event_prefix: '',
+                    code: 'analogicsummary',
+                    controller: 'Screen',
+                    action: 'summarySyncDataResponseHandle'
+                },
+
+                "alarmssummary": {
+                    path: '',
+                    event_prefix: '',
+                    code: 'alarmssummary',
+                    controller: 'Screen',
+                    action: 'summarySyncDataResponseHandle'
+                },
+                "subchannelssummary": {
+                    path: '',
+                    event_prefix: '',
+                    code: 'subchannelssummary',
+                    controller: 'Screen',
+                    action: 'summarySyncDataResponseHandle'
+                },
+                "devicessummary": {
+                    path: '',
+                    event_prefix: '',
+                    code: 'devicessummary',
+                    controller: 'Screen',
+                    action: 'summarySyncDataResponseHandle'
+                },
+                
+                "alarms": {
+                    path: '',
+                    event_prefix: '',
+                    code: 'alarms',
+                    controller: 'Alarm',
+                    action: 'alarmsSyncResponseHandle'
+                },
+    },
+
+    graphics_objects: {
+        summary: {
+            analogicsummary: {
+                id: 'analogicsummary',
+                desc: 'Sumario Puntos Anal\xf3gicos',
+                type: 'summary',
+                childs_ds: [
+                    {
+                        type: 'Table',
+                        fields: {
+                            n: {id:'n',desc:'Nombre'},
+                            d: {id:'d',desc:'Descripci\xf3n'},
+                            v: {id:'v',desc:'Valor Actual'},
+                            u: {id:'u',desc:'Unidad de Ingenier\xEDa'},
+                            g: {id:'g',desc:'Grupo'},
+                            q: {id:'q',desc:'S\xEDmbolo de Calidad'},
+                        },
+                        ordenables: {
+                            // n:{default:1},
+                            // v:{}
+                        },
+                        states:{
+                            "1": {
+                                    id: "1",
+                                    conditions: [
+                                                    {comp: "==", cond: "O", src: "q", value:'(192) - Bueno'}
+                                                ]
+                            },
+
+                            "2": {
+                                    id: "2",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "q", value:'(24) - Malo - Fallo de comunicación'}
+                                                ]
+                            },
+                            "3": {
+                                    id: "3",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "q", value:'Fuera de barrido'}
+                                                ]
+                            }
+
+
+                        },//end states
+                        behaviors: {
+                            "1" : {
+                                    a: {color: '#00FF00', background: '#000000'}
+                                  },
+                            "2" : {
+                                    a: {color: '#00FFFF', background: '#000000'}
+                                  },
+                             "3" : {
+                                    a: {color: '#FF00FF', background: '#000000'}
+                                  }
+                        },//end behavior
+                        components: {
+                            'paginator' : {
+                                type: 'Paginator',
+                                config:{
+
+                                },
+                                node: '.paginate',
+                                //Especifica que datos del componente forman parte de una 
+                                //query
+                                query: [
+
+                                    {query_name: 'page', attr: 'actual'},
+                                    {query_name: 'size', attr: 'size'}
+                                ]
+                            },
+                            'filter' : {
+                                type: 'Filter',
+                                properties: [
+                                    {id:'n',desc:'Nombre'},
+                                    {id:'d',desc:'Descripci\xf3n'},
+                                    {id:'v',desc:'Valor Actual'},
+                                    {id:'u',desc:'Unidad'},
+                                    {id:'g',desc:'Grupo'},
+                                    {id:'q',desc:'Calidad'},
+                                    {id:'t',desc:'Tipo'}
+
+                                ],
+                                active_property: {id:'n',desc:'Nombre'},
+                                active_value: '',                                    
+                                node: '.filter',
+                                //Define que attr seran filtrables
+                                query: [
+                                    {query_name: 'filter_property', attr: 'active_property.id'},
+                                    {query_name: 'filter_value', attr: 'active_filter'}
+                                ]
+                            }
+                        }                                  
+                    }
+                ]
+            },
+
+            digitalsummary: {
+                id: 'digitalsummary',
+                desc: 'Sumario Puntos Digitales',
+                type: 'summary',
+                childs_ds: [
+                    {
+                        type: 'Table',
+                        fields: {
+                            n: {id:'n',desc:'Nombre'},
+                            d: {id:'d',desc:'Descripci\xf3n'},
+                            v: {id:'v',desc:'Valor Actual'},
+                            u: {id:'u',desc:'Unidad de Ingenier\xEDa'},
+                            g: {id:'g',desc:'Grupo'},
+                            q: {id:'q',desc:'S\xEDmbolo de Calidad'},
+
+                        },
+                        states:{
+                            "1": {
+                                    id: "1",
+                                    conditions: [
+                                                    {comp: "==", cond: "O", src: "q", value:'(192) - Bueno'}
+                                                ]
+                            },
+
+                            "2": {
+                                    id: "2",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "q", value:'(24) - Malo - Fallo de comunicación'}
+                                                ]
+                            },
+                            "3": {
+                                    id: "3",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "q", value:'Fuera de barrido'}
+                                                ]
+                            }
+
+
+                        },//end states
+                        behaviors: {
+                            "1" : {
+                                    a: {color: '#00FF00', background: '#000000'}
+                                  },
+                            "2" : {
+                                    a: {color: '#00FFFF', background: '#000000'}
+                                  },
+                             "3" : {
+                                    a: {color: '#FF00FF', background: '#000000'}
+                                  }
+                        },//end behavior
+                        components: {
+                            'paginator' : {
+                                type: 'Paginator',
+                                config:{
+
+                                },
+                                node: '.paginate',
+                                query: [
+
+                                    {query_name: 'page', attr: 'actual'},
+                                    {query_name: 'size', attr: 'size'}
+                                ]
+                            },
+                            'filter' : {
+                                type: 'Filter',
+                                properties: [
+                                    {id:'n',desc:'Nombre'},
+                                    {id:'d',desc:'Descripci\xf3n'},
+                                    {id:'v',desc:'Valor Actual'},
+                                    {id:'u',desc:'Unidad'},
+                                    {id:'g',desc:'Grupo'},
+                                    {id:'q',desc:'Calidad'},
+                                    {id:'t',desc:'Tipo'}
+
+                                ],
+                                active_property: {id:'n',desc:'Nombre'},
+                                active_value: '',                                    
+                                node: '.filter',
+                                //Define que attr seran filtrables
+                                query: [
+                                    {query_name: 'filter_property', attr: 'active_property.id'},
+                                    {query_name: 'filter_value', attr: 'active_filter'}
+                                ]
+                            }
+                        }                              
+                    }
+                ]
+
+            },
+
+            alarmssummary: {
+                id: 'alarmssummary',
+                desc: 'Sumario Alarmas',
+                type: 'summary',
+                childs_ds: [
+                    {
+                        type: 'Table',
+                        fields: {
+                            s: {id:'s',desc:'', html:'<button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-volume-up"></span></button>'},
+                            f: {id:'f',desc:'Fecha-Hora'},
+                            r: {id:'r',desc:'Recurso'},
+                            c: {id:'c',desc:'Causa'},
+                            t: {id:'t',desc:'Tipo'},
+                            d: {id:'d',desc:'Descripci\xf3n'},
+                            n: {id:'n',desc:'Nr. Ocur.'},
+                            p: {id:'p',desc:'Prioridad'},
+                            g: {id:'g',desc:'Grupo'}
+                        },
+                        //matchea una behavior model con un estado
+                        //Propiedades de un objeto que definen su cambio de estado
+                        //Sale mas natural con oyentes
+                        actionables: {
+                            //data desde donde va a tomar su valor
+                            s: {id:'s', data:'', action:''}
+                        },
+                        behaviors: {
+                                        "1" : {
+                                                a: {color: '#FF0000', background: '#000000'},
+                                                b: {color: '#000000', background: '#FF0000'},
+                                                blink: 500,
+                                                active: 'a'
+                                              },
+
+                                        "2" : {
+                                            a: {color: '#FF0000', background: '#000000'},
+                                        },
+
+                                        "3" : {
+                                                a: {color: '#FF0000', background: '#000000'},
+                                                b: {color: '#00FF00', background: '#000000'},
+                                                blink: 500,
+                                                active: 'a'
+                                        },
+
+                                        "4" : {
+                                                a: {color: '#f9b41e', background: '#000000'},
+                                                b: {color: '#000000', background: '#f9b41e'},
+                                                blink: 500,
+                                                active: 'a'
+                                        },
+                                        "5" : {
+                                                a: {color: '#f9b41e', background: '#000000'},
+                                        },  
+                                        "6" : {
+                                                a: {color: '#f9b41e', background: '#000000'},
+                                                b: {color: '#00FF00', background: '#000000'},
+                                                blink: 500,
+                                                active: 'a'
+                                        },
+                                        "7" : {
+                                                a: {color: '#FFFF00', background: '#000000'},
+                                                b: {color: '#000000', background: '#FFFF00'},
+                                                blink: 500,
+                                                active: 'a'
+                                        },
+                                        "8" : {
+                                                a: {color: '#FFFF00', background: '#000000'},
+                                        },
+                                        "9" : {
+                                                a: {color: '#FFFF00', background: '#000000'},
+                                                b: {color: '#00FF00', background: '#000000'},
+                                                blink: 500,
+                                                active: 'a'
+                                        }
+
+                        },//end behavior
+                        components: {
+                            'paginator' : {
+                                type: 'Paginator',
+                                config:{
+
+                                },
+                                node: '.paginate',
+                                query: [
+
+                                    {query_name: 'page', attr: 'actual'},
+                                    {query_name: 'size', attr: 'size'}
+                                ]
+                            },
+                            'filter' : {
+                                type: 'Filter',
+                                properties: [
+                                    {id:'f',desc:'Fecha-Hora'},
+                                    {id:'r',desc:'Recurso'},
+                                    {id:'c',desc:'Causa'},
+                                    {id:'t',desc:'Tipo'},
+                                    {id:'d',desc:'Descripci\xf3n'},
+                                    {id:'n',desc:'Nr. Ocur.'},
+                                    {id:'p',desc:'Prioridad'},
+                                    {id:'g',desc:'Grupo'}
+                                ],
+                                active_property: {id:'f',desc:'Fecha-Hora'},
+                                active_value: '',                                    
+                                node: '.filter',
+                                //Define que attr seran filtrables
+                                query: [
+                                    {query_name: 'filter_property', attr: 'active_property.id'},
+                                    {query_name: 'filter_value', attr: 'active_filter'}
+                                ]
+                            }
+                        }                           
+                    }
+                ]
+
+            },
+            subchannelssummary: {
+                id: 'subchannelssummary',
+                desc: 'Sumario Subcanales',
+                type: 'summary',
+                childs_ds: [
+                    {
+                        type: 'Table',
+                        fields: {
+                            r: {id:'r',desc:'Recurso'},
+                            d: {id:'d',desc:'Descripci\xf3n'},
+                            s: {id:'s',desc:'Estado Actual'},
+                            t: {id:'t',desc:'Tiempo Encuesta Actual'},
+                            ps: {id:'ps',desc:'Estado Anterior'},
+                            pt: {id:'pt',desc:'Tiempo Encuesta Anterior'},
+                        },
+                        states:{
+                            "1": {
+                                    id: "1",
+                                    conditions: [
+                                                    {comp: "==", cond: "O", src: "s", value:'No Responde'}
+                                                    // {comp: "==", cond: "O", src: "s", value:'Dispositivo Erróneo'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error de Configuración'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error No Definido'}
+                                                ]
+                            },
+
+                            "2": {
+                                    id: "2",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "s", value:'Error de CRC'}
+                                                    // {comp: "==", cond: "O", src: "s", value:'Mensaje Corto'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Mensaje Largo'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Mensaje Ilegal'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error en Sub-Canal'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error en Canal'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error en Ciclo de Scan'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error en Transmisión'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error en Recepción'}
+                                                ]
+                            },
+                            "3": {
+                                    id: "3",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "s", value:'NORMAL'}
+                                                ]
+                            },
+                            "4": {
+                                    id: "4",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "s", value:'Fuera de Linea'}
+                                                    // {comp: "==", cond: "O", src: "s", value:'Desconectado'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Fuera de Barrido'}
+                                                ]
+                            }
+
+
+                        },//end states
+                        behaviors: {
+                            "1" : {
+                                    a: {color: '#FF0000', background: '#000000'}
+                                  },
+                            "2" : {
+                                    a: {color: '#FFFF00', background: '#000000'}
+                                  },
+                            "3" : {
+                                    a: {color: '#00FF00', background: '#000000'}
+                                  },
+                            "4" : {
+                                    a: {color: '#FF00FF', background: '#000000'}
+                                  }
+                        },//end behavior
+                        components: {
+                            'paginator' : {
+                                type: 'Paginator',
+                                config:{
+
+                                },
+                                node: '.paginate',
+                                query: [
+
+                                    {query_name: 'page', attr: 'actual'},
+                                    {query_name: 'size', attr: 'size'}
+                                ]
+                            },
+                            'filter' : {
+                                type: 'Filter',
+                                properties: [
+                                    {id:'r',desc:'Recurso'},
+                                    {id:'d',desc:'Descripci\xf3n'},
+                                    {id:'s',desc:'Estado Actual'},
+                                    {id:'t',desc:'Tiempo Encuesta Actual'},
+                                    {id:'ps',desc:'Estado Anterior'},
+                                    {id:'pt',desc:'Tiempo Encuesta Anterior'}
+                                ],
+                                active_property: {id:'n',desc:'Nombre'},
+                                active_value: '',                                    
+                                node: '.filter',
+                                //Define que attr seran filtrables
+                                query: [
+                                    {query_name: 'filter_property', attr: 'active_property.id'},
+                                    {query_name: 'filter_value', attr: 'active_filter'}
+                                ]
+                            }
+                        }                              
+                    }
+                ]
+
+            },
+            devicessummary: {
+                id: 'devicessummary',
+                desc: 'Sumario Dispositivos',
+                type: 'summary',
+                childs_ds: [
+                    {
+                        type: 'Table',
+                        fields: {
+                            r: {id:'r',desc:'Recurso'},
+                            d: {id:'d',desc:'Descripci\xf3n'},
+                            s: {id:'s',desc:'Estado Actual'},
+                            t: {id:'t',desc:'Tiempo Encuesta Actual'},
+                            ps: {id:'ps',desc:'Estado Anterior'},
+                            pt: {id:'pt',desc:'Tiempo Encuesta Anterior'}
+                        },
+                        states:{
+                            "1": {
+                                    id: "1",
+                                    conditions: [
+                                                    {comp: "==", cond: "O", src: "s", value:'No Responde'}
+                                                    // {comp: "==", cond: "O", src: "s", value:'Dispositivo Erróneo'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error de Configuración'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error No Definido'}
+                                                ]
+                            },
+
+                            "2": {
+                                    id: "2",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "s", value:'Error de CRC'}
+                                                    // {comp: "==", cond: "O", src: "s", value:'Mensaje Corto'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Mensaje Largo'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Mensaje Ilegal'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error en Sub-Canal'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error en Canal'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error en Ciclo de Scan'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error en Transmisión'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Error en Recepción'}
+                                                ]
+                            },
+                            "3": {
+                                    id: "3",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "s", value:'NORMAL'}
+                                                ]
+                            },
+                            "4": {
+                                    id: "4",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "s", value:'Desconectado'}
+                                                    // {comp: "==", cond: "O", src: "s", value:'Fuera de Línea'},
+                                                    // {comp: "==", cond: "O", src: "s", value:'Fuera de Barrido'}
+                                                ]
+                            }
+
+
+                        },//end states
+                        behaviors: {
+                            "1" : {
+                                    a: {color: '#FF0000', background: '#000000'}
+                                  },
+                            "2" : {
+                                    a: {color: '#FFFF00', background: '#000000'}
+                                  },
+                            "3" : {
+                                    a: {color: '#00FF00', background: '#000000'}
+                                  },
+                            "4" : {
+                                    a: {color: '#FF00FF', background: '#000000'}
+                                  }
+                        },//end behavior
+                        components: {
+                            'paginator' : {
+                                type: 'Paginator',
+                                config:{
+
+                                },
+                                node: '.paginate',
+                                query: [
+
+                                    {query_name: 'page', attr: 'actual'},
+                                    {query_name: 'size', attr: 'size'}
+                                ]
+                            },
+                            'filter' : {
+                                type: 'Filter',
+                                properties: [
+                                    {id:'r',desc:'Recurso'},
+                                    {id:'d',desc:'Descripci\xf3n'},
+                                    {id:'s',desc:'Estado Actual'},
+                                    {id:'t',desc:'Tiempo Encuesta Actual'},
+                                    {id:'ps',desc:'Estado Anterior'},
+                                    {id:'pt',desc:'Tiempo Encuesta Anterior'}
+                                ],
+                                active_property: {id:'n',desc:'Nombre'},
+                                active_value: '',                                    
+                                node: '.filter',
+                                //Define que attr seran filtrables
+                                query: [
+                                    {query_name: 'filter_property', attr: 'active_property.id'},
+                                    {query_name: 'filter_value', attr: 'active_filter'}
+                                ]
+                            }
+                        }                              
+                    }
+                ]
+
+            },
+            eventssummary: {
+                id: 'eventssummary',
+                desc: 'Sumario Eventos',
+                type: 'summary',
+                childs_ds: [
+                    {
+                        type: 'Table',
+                        fields: {
+                            f: {id:'f',desc:'Fecha'},
+                            r: {id:'r',desc:'Recurso'},
+                            t: {id:'t',desc:'Tipo de Evento'},
+                            v: {id:'v',desc:'Valor Actual'},
+                            p: {id:'p',desc:'Valor Anterior'},
+                            d: {id:'d',desc:'Descripci\xf3n'},
+                            u: {id:'u',desc:'Usuario'}
+
+                        },
+                        states:{
+                            "1": {
+                                    id: "1",
+                                    conditions: [
+                                                    {comp: "==", cond: "O", src: "q", value:'(192) - Bueno'}
+                                                ]
+                            },
+
+                            "2": {
+                                    id: "2",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "q", value:'(24) - Malo - Fallo de comunicación'}
+                                                ]
+                            },
+                            "3": {
+                                    id: "3",
+                                    conditions: [
+                                                    
+                                                    {comp: "==", cond: "O", src: "q", value:'Fuera de barrido'}
+                                                ]
+                            }
+
+
+                        },//end states
+                        behaviors: {
+                            "1" : {
+                                    a: {color: '#00FF00', background: '#000000'}
+                                  },
+                            "2" : {
+                                    a: {color: '#00FFFF', background: '#000000'}
+                                  },
+                             "3" : {
+                                    a: {color: '#FF00FF', background: '#000000'}
+                                  }
+                        },//end behavior
+                        components: {
+                            'paginator' : {
+                                type: 'Paginator',
+                                config:{
+
+                                },
+                                node: '.paginate',
+                                query: [
+
+                                    {query_name: 'page', attr: 'actual'},
+                                    {query_name: 'size', attr: 'size'}
+                                ]
+                            },
+                            'filter' : {
+                                type: 'Filter',
+                                properties: [
+                                    {id:'f',desc:'Fecha'},
+                                    {id:'r',desc:'Recurso'},
+                                    {id:'t',desc:'Tipo de Evento'},
+                                    {id:'v',desc:'Valor Actual'},
+                                    {id:'p',desc:'Valor Anterior'},
+                                    {id:'d',desc:'Descripci\xf3n'},
+                                    {id:'u',desc:'Usuario'}
+
+                                ],
+                                active_property: {id:'f',desc:'Fecha'},
+                                active_value: '',                                    
+                                node: '.filter',
+                                //Define que attr seran filtrables
+                                query: [
+                                    {query_name: 'filter_property', attr: 'active_property.id'},
+                                    {query_name: 'filter_value', attr: 'active_filter'}
+                                ]
+                            }
+                        }                              
+                    }
+                ]
+
+            },
+
+            small_summary: {
+                id: 'small-summary',
+                fields: {
+                    s: {id:'s',desc:'', html:'<button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-volume-up"></span></button>'},
+                    f: {id:'f',desc:'Fecha-Hora'},
+                    r: {id:'r',desc:'Recurso'},
+                    c: {id:'c',desc:'Causa'},
+                    t: {id:'t',desc:'Tipo'},
+                    d: {id:'d',desc:'Descripci\xf3n'},
+                    n: {id:'n',desc:'Nr. Ocur.'},
+                    p: {id:'p',desc:'Prioridad'},
+                    g: {id:'g',desc:'Grupo'}
+                },
+                lenght: 1,
+                actionables: {
+                    //data desde donde va a tomar su valor
+                    s: {id:'s', data:'', action:''}
+                },
+                behaviors: {
+                                "1" : {
+                                        a: {color: '#FF0000', background: '#000000'},
+                                        b: {color: '#000000', background: '#FF0000'},
+                                        blink: 500,
+                                        active: 'a'
+                                      },
+
+                                "2" : {
+                                    a: {color: '#FF0000', background: '#000000'},
+                                },
+
+                                "3" : {
+                                        a: {color: '#FF0000', background: '#000000'},
+                                        b: {color: '#00FF00', background: '#000000'},
+                                        blink: 500,
+                                        active: 'a'
+                                },
+
+                                "4" : {
+                                        a: {color: '#f9b41e', background: '#000000'},
+                                        b: {color: '#000000', background: '#f9b41e'},
+                                        blink: 500,
+                                        active: 'a'
+                                },
+                                "5" : {
+                                        a: {color: '#f9b41e', background: '#000000'},
+                                },  
+                                "6" : {
+                                        a: {color: '#f9b41e', background: '#000000'},
+                                        b: {color: '#00FF00', background: '#000000'},
+                                        blink: 500,
+                                        active: 'a'
+                                },
+                                "7" : {
+                                        a: {color: '#FFFF00', background: '#000000'},
+                                        b: {color: '#000000', background: '#FFFF00'},
+                                        blink: 500,
+                                        active: 'a'
+                                },
+                                "8" : {
+                                        a: {color: '#FFFF00', background: '#000000'},
+                                },
+                                "9" : {
+                                        a: {color: '#FFFF00', background: '#000000'},
+                                        b: {color: '#00FF00', background: '#000000'},
+                                        blink: 500,
+                                        active: 'a'
+                                }
+
+                }
+            }
+        }
+    }
+}
+
