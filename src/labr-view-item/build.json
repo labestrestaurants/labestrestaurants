@@ -1,0 +1,10 @@
+{
+    "name": "labr-view-item",
+    "builds": {
+        "labr-view-item": {
+            "jsfiles": [
+                "js/labr-view-item.js"
+            ]
+        }
+    }
+}

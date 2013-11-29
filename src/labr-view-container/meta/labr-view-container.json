@@ -1,7 +1,7 @@
 {
     "labr-view-container": {
         "requires": [
-            "widget","yql","dataschema-json"
+            "widget","yql","dataschema-json","widget-parent","labr-view-item"
         ],
         "skinnable": true
     }
