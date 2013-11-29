@@ -154,4 +154,26 @@ function(Y){
 	var goingUp = false, lastY = 0;
 
 	App.init();
+
+	var myLatlng = new google.maps.LatLng(37.76444, -122.46666);
+
+	var mapOptions = {
+	  center: myLatlng,
+	  zoom: 17,
+	  mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+
+	var map = new google.maps.Map(document.getElementById("map_canvas"),
+    mapOptions);
+
+  var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      animation: google.maps.Animation.DROP,
+      title: 'Hello World!'
+  });
+
+
 });
+
+//VCItv4rV34FRu8RGyR6PrSo31wxpMXoZ7Ee_yOcPZFywdnCHbkWGkpoIak21L_RaK8rut3NqztAcm.MEMuX5mzYUwDOMSow-
