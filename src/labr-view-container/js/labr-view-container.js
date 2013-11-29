@@ -131,6 +131,16 @@ var ATTR_CONTENTBOX = 'contentBox',
         });
 	},
 
+	filterItems: function(query){
+		var instance = this,
+			size = instance.size(),
+			i = 0;
+		for (var i = 0; i < size; i++) {
+			instance.item(i).applyFilter(query);
+		};
+
+	},
+
 	/**
 	 * Description
 	 * @method parseData
