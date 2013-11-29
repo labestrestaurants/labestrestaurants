@@ -69,14 +69,13 @@ var ATTR_CONTENTBOX = 'contentBox',
 	renderChilds : function(data){
 		var instance = this,
 			contentBox = instance.get(ATTR_CONTENTBOX),
-			itemsContainer = contentBox.one('.list-group'),
+			itemsContainer = contentBox.one('ul'),
 			childWidget,
 			childs = data.results;
 
 		Y.each(childs, function(item){
-			childWidget = new Y.LAbr.Item(item);
+			childWidget = new Y.LAbr.Item(item).render(itemsContainer);
 			instance.add(childWidget);
-			itemsContainer.appendChild(childWidget.render());
 		});
 
 		//I d'like remove html elements that can be used after
@@ -133,6 +132,12 @@ var ATTR_CONTENTBOX = 'contentBox',
         });
 	},
 
+	/**
+	 * Description
+	 * @method filterItems
+	 * @param {} query
+	 * @return 
+	 */
 	filterItems: function(query){
 		var instance = this,
 			size = instance.size(),

@@ -18,6 +18,7 @@ border: solid 1px #ccc;
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	border-radius: 0px;
+	margin-bottom: 0px;
 }
 
 .form-control{

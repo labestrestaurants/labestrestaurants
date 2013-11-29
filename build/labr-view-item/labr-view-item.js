@@ -93,9 +93,8 @@ var ATTR_CONTENTBOX = 'contentBox',
 				if(filtered){
 					highLightItems.push(item);
 				}
-
 			});
-			
+
 			if(filtered){
 				inside = Y.Highlight.all(categories,highLightItems);
 				boundingBox.one('span.categories').set('innerHTML', inside);			
