@@ -1,0 +1,11 @@
+{
+    "name"       : "labr-view-item",
+    "displayName": "Gallery: labr-view-item",
+    "description": "*Summary Goes Here*",
+    "author"     : [ "" ],
+    "use"        : [ "labr-view-item" ],
+
+    "tags": [ "gallery" ],
+
+    "examples": []
+}

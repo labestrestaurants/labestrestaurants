@@ -1,0 +1,8 @@
+{
+    "labr-view-item": {
+        "requires": [
+            "widget","widget-child"
+        ],
+        "skinnable": true
+    }
+}
