@@ -97,7 +97,8 @@ function(Y){
 		App.filterItems('');
 	});
 
-	//Thanks to YUI Guys http://yuilibrary.com/yui/docs/dd/list-drag.html example
+	//Thanks to YUI Guys 
+	//http://yuilibrary.com/yui/docs/dd/list-drag.html example
 	Y.DD.DDM.on('drag:start', function(e) {
 	    //Get our drag object
 	    var drag = e.target;
