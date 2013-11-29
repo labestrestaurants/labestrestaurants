@@ -96,11 +96,14 @@ var ATTR_CONTENTBOX = 'contentBox',
 		var instance = this,
 		dataRetrieve = instance.get('dataRetrieve'),
 		statement = [
-						'select * from local.search where query="',
+						'select * from local.search'+
+						' where query="',
 						dataRetrieve.query,
 						'" and location="',
 						dataRetrieve.location,
-						'"'
+						'"',
+						' | sort(field="Distance", descending="false",field="Rating.AverageRating", descending="true")',
+						'| truncate(count='+ dataRetrieve.count + ')'
 					].join(''),
 		data;
 
