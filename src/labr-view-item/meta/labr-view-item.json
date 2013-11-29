@@ -1,7 +1,7 @@
 {
     "labr-view-item": {
         "requires": [
-            "widget","widget-child"
+            "widget","widget-child","highlight","autocomplete-filters"
         ],
         "skinnable": true
     }

@@ -71,6 +71,40 @@ var ATTR_CONTENTBOX = 'contentBox',
 
 	},
 
+	applyFilter: function(query){
+		var instance = this,
+			boundingBox = instance.get(ATTR_BOUNDINGBOX),
+			categories = instance.get('categories'),
+			title = instance.get('title'),
+			address = instance.get('address'),
+			filtered = 0,
+			queryArray = [],
+			tempResult,
+			inside,
+			highLightItems = [];
+
+		if(query === ''){
+			boundingBox.one('span.categories').set('innerHTML', categories);
+			boundingBox.replaceClass('hidden', 'show');
+		} else {
+			queryArray = query.split(',');
+			Y.each(queryArray, function(item){
+				filtered = Y.AutoCompleteFilters.subWordMatch(item,[{text: categories}]).length;
+				if(filtered){
+					highLightItems.push(item);
+				}
+
+			});
+			
+			if(filtered){
+				inside = Y.Highlight.all(categories,highLightItems);
+				boundingBox.one('span.categories').set('innerHTML', inside);			
+			} else {
+				boundingBox.replaceClass('show', 'hidden');
+			}
+		}
+	},
+
 	/**
 	 * Description
 	 * @method syncRating
@@ -115,9 +149,6 @@ var ATTR_CONTENTBOX = 'contentBox',
         	phone: {
         		value:''
         	},
-        	address: {
-        		value:''
-        	},
         	rating: {
         		value:''
         	},
@@ -125,7 +156,7 @@ var ATTR_CONTENTBOX = 'contentBox',
         		value:''
         	},
         	categories: {
-        		value: {}
+        		value: ''
         	},
     	
         }
@@ -135,4 +166,4 @@ var ATTR_CONTENTBOX = 'contentBox',
 Y.LAbr.Item = MyItem;
 
 
-}, '@VERSION@', {"requires": ["widget", "widget-child"], "skinnable": true});
+}, '@VERSION@', {"requires": ["widget", "widget-child", "highlight", "autocomplete-filters"], "skinnable": true});
