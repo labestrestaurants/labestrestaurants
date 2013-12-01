@@ -13,7 +13,16 @@ var ATTR_CONTENTBOX = 'contentBox',
      */
     initializer: function (config) {
         var instance = this;
+        instance._publishEvents();
     },
+
+	_publishEvents: function(){
+		var instance = this;
+		instance.publish('openitem',{
+				emitFacade:true,
+				broadcast : 1
+		});
+	},
 	
     BOUNDING_TEMPLATE : '<li class="list-group-item"></li>',
     CONTENT_TEMPLATE : 	'<div class="item-icon pull-left"></div>' +
@@ -37,7 +46,12 @@ var ATTR_CONTENTBOX = 'contentBox',
 	 */
 	renderUI : function () {
 		var instance = this,
-			contentBox = instance.get(ATTR_CONTENTBOX);
+			boundingBox = instance.get(ATTR_BOUNDINGBOX),
+			height = boundingBox.getComputedStyle('height');
+
+		height = parseInt(height.substring(0, height.length-2));
+		instance.set('heightX', height);
+		
     },
 		
 	/**
@@ -47,7 +61,24 @@ var ATTR_CONTENTBOX = 'contentBox',
 	 */
 	bindUI: function() {
     	var instance = this,
-    		contentBox = instance.get(ATTR_CONTENTBOX);
+    		boundingBox = instance.get(ATTR_BOUNDINGBOX),
+    		data;
+
+    	boundingBox.on('click', function(e){
+    		data = {
+    			event: e,
+    			address: instance.get('address'), 
+        		phone: instance.get('phone'),
+        		title: instance.get('title'),
+        		latitude: instance.get('latitude'),
+        		longitude: instance.get('longitude'),
+        		city: instance.get('city'),
+        		state: instance.get('state'),
+        		latestReview: instance.get('latestReview')
+    		}
+    		instance.fire('openitem', {data: data});
+    		e.stopPropagation();
+    	});
     },
 	
 	/**
@@ -73,8 +104,6 @@ var ATTR_CONTENTBOX = 'contentBox',
 		var instance = this,
 			boundingBox = instance.get(ATTR_BOUNDINGBOX),
 			categories = instance.get('categories'),
-			title = instance.get('title'),
-			address = instance.get('address'),
 			filtered = 0,
 			queryArray = [],
 			tempResult,
@@ -140,14 +169,23 @@ var ATTR_CONTENTBOX = 'contentBox',
         	address: {
         		value:''
         	},
-        	distance: {
+        	city: {
+        		value:''
+        	},
+			state: {
         		value:''
         	},
         	phone: {
         		value:''
         	},
+        	distance: {
+        		value:''
+        	},
         	rating: {
         		value:''
+        	},
+        	latestReview: {
+        		value: ' I ve been here twice and so far so good - don t know what others are whining about coz my tempura was crisp &amp; fresh, the inari filled plenty tho they were missing the sesame seeds I m used to from other places. The music was too loud on my second visit but we mostly watched the NBA playoff game on the TV anyway so no big deal. I ll definitely be back.'
         	},
         	title: {
         		value:''
@@ -155,8 +193,17 @@ var ATTR_CONTENTBOX = 'contentBox',
         	categories: {
         		value: ''
         	},
-    	
-        }
+        	latitude: {
+        		value:''
+        	},
+        	longitude: {
+        		value: ''
+        	},
+        	heightX: {
+        		value:''
+        	}
+
+	    }
         
 });
 
