@@ -4,40 +4,19 @@ YUI().use(
 function(Y){
 	Y.namespace('LAbr');
 
-	var App = { CategoriesViews: {}, Maps:{marker:{}, apiLoad:0}},
-		categories = [
-			{
-				name: 'American',
-				tittle: 'Americans Restaurants',
-				dataRetrieve: {
-						location: 'los angeles, ca',
-						query: 'burger',
-						count:5
-				}				
-			},
-			{
-				name: 'Japanese',
-				tittle: 'Japanese Restaurants',
-				dataRetrieve: {
-						location: 'los angeles, ca',
-						query: 'japanese',
-						count:5
-				}				
-			},
-			{
-				name: 'Korean',
-				tittle: 'Korean Restaurants',
-				dataRetrieve: {
-						location: 'los angeles, ca',
-						query: 'korean',
-						count:5
-				}				
-			}
-		],
-	ac = new Y.AutoComplete({
-	  inputNode: '#filter',
-	  render   : true
-	});
+	//Basic App Configurations
+	var App = { 
+				CategoriesViews: {}, 
+				Maps:{
+						marker:{},
+						apiLoad:0
+				}
+		},
+		categories = APP_config.categories,
+		ac = new Y.AutoComplete({
+	  		inputNode: '#filter',
+	  		render   : true
+		});
 
 
 	/**
@@ -51,7 +30,6 @@ function(Y){
 		Y.each(categories, function(item){
 			views[item.name] = new Y.LAbr.Container(item).render('.panels-container');
 		});	
-
 		App.reorderPanels();	
 	};
 
@@ -329,27 +307,4 @@ function(Y){
 
 
 
-
-
-	// //Google maps API
-	// var myLatlng = new google.maps.LatLng(37.76444, -122.46666);
-
-	// var mapOptions = {
-	//   center: myLatlng,
-	//   zoom: 17,
-	//   mapTypeId: google.maps.MapTypeId.ROADMAP
-	// };
-
-	// var map = new google.maps.Map(document.getElementById("map_canvas"),
- //    mapOptions);
-
-	// var marker = new google.maps.Marker({
-	//     position: myLatlng,
-	//     map: map,
-	//     animation: google.maps.Animation.DROP,
-	//     title: 'Hello World!'
-	// });
-
 });
-
-//VCItv4rV34FRu8RGyR6PrSo31wxpMXoZ7Ee_yOcPZFywdnCHbkWGkpoIak21L_RaK8rut3NqztAcm.MEMuX5mzYUwDOMSow-
