@@ -104,9 +104,12 @@ var ATTR_CONTENTBOX = 'contentBox',
 					].join(''),
 		data;
 
+		//Testing in offline mode
+		// data = instance.parseData(APP_config.test_data);
+ 	// 	instance.renderChilds(data);
         Y.YQL(statement, {
             	allowCache: false,
-            	timeout:9000,
+            	timeout:90000,
             	on: {
                     /**
                      * Description
@@ -115,7 +118,7 @@ var ATTR_CONTENTBOX = 'contentBox',
                      * @return 
                      */
                     success: function(r){
- 						data = instance.parseData(r);
+                    	data = instance.parseData(r);
  						instance.renderChilds(data);
                  	},
                  
@@ -174,12 +177,6 @@ var ATTR_CONTENTBOX = 'contentBox',
 			        {
 			            key: "categories",
 			            locator: "Categories.Category",
-			            /**
-            			 * Description
-            			 * @method parser
-            			 * @param {} val
-            			 * @return result
-            			 */
             			parser: function (val) {
 			            	var result = '';
 			                Y.each(val, function(item){
@@ -191,28 +188,36 @@ var ATTR_CONTENTBOX = 'contentBox',
 			        {
 			            key: "distance",
 			            locator: "Distance",
-			            /**
-            			 * Description
-            			 * @method parser
-            			 * @param {} val
-            			 * @return BinaryExpression
-            			 */
             			parser: function (val) {
-			                return val + ' millas';
+			                return val + ' miles';
 			            }
+			        },
+			        {
+			            key: "latitude",
+			            locator: "Latitude"
+			        },
+			        {
+			            key: "longitude",
+			            locator: "Longitude"
 			        },
 			        {
 			            key: "rating",
 			            locator: "Rating.AverageRating",
-			            /**
-            			 * Description
-            			 * @method parser
-            			 * @param {} val
-            			 * @return ConditionalExpression
-            			 */
             			parser: function (val) {
 			                return isNaN(val) ? -1 : +val;
 			            }
+			        },
+			        {
+			            key: "latestReview",
+			            locator: "Rating.LastReviewIntro"
+			        },
+			        {
+			            key: "city",
+			            locator: "City"
+			        },
+			        {
+			            key: "state",
+			            locator: "State"
 			        }
 			    ]
 			};

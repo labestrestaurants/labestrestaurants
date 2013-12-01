@@ -1,0 +1,8 @@
+{
+    "labr-view-itemdetails": {
+        "requires": [
+            "widget","event-outside"
+        ],
+        "skinnable": true
+    }
+}

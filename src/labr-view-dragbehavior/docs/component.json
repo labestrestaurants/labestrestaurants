@@ -1,0 +1,11 @@
+{
+    "name"       : "labr-view-dragbehavior",
+    "displayName": "Gallery: labr-view-dragbehavior",
+    "description": "*Summary Goes Here*",
+    "author"     : [ "" ],
+    "use"        : [ "labr-view-dragbehavior" ],
+
+    "tags": [ "gallery" ],
+
+    "examples": []
+}
