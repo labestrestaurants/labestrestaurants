@@ -1,0 +1,7 @@
+{
+    "labr-view-dragbehavior": {
+        "requires": [
+            "base", "dd-constrain", "dd-proxy", "dd-drop",
+        ]
+    }
+}

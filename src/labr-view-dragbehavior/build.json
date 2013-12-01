@@ -1,0 +1,10 @@
+{
+    "name": "labr-view-dragbehavior",
+    "builds": {
+        "labr-view-dragbehavior": {
+            "jsfiles": [
+                "js/labr-view-dragbehavior.js"
+            ]
+        }
+    }
+}

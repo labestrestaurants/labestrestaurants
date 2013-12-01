@@ -1,6 +1,6 @@
 YUI().use(
-	'base', 'json','labr-view-container','autocomplete', 'autocomplete-highlighters',
-	'dd-constrain', 'dd-proxy', 'dd-drop', 'labr-view-itemdetails',
+	'base', 'json','labr-view-container','autocomplete', 'autocomplete-highlighters','labr-view-dragbehavior',
+	'labr-view-itemdetails',
 function(Y){
 	Y.namespace('LAbr');
 
