@@ -1,0 +1,10 @@
+{
+    "name": "labr-controller-app",
+    "builds": {
+        "labr-controller-app": {
+            "jsfiles": [
+                "js/labr-controller-app.js"
+            ]
+        }
+    }
+}

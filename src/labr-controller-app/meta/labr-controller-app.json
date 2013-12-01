@@ -1,0 +1,7 @@
+{
+    "labr-controller-app": {
+        "requires": [
+            "yui-base"
+        ]
+    }
+}
