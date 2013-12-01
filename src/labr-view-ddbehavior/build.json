@@ -1,0 +1,10 @@
+{
+    "name": "labr-view-ddbehavior",
+    "builds": {
+        "labr-view-ddbehavior": {
+            "jsfiles": [
+                "js/labr-view-ddbehavior.js"
+            ]
+        }
+    }
+}

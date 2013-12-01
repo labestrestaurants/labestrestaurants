@@ -1,6 +1,6 @@
 YUI.add('module-tests', function(Y) {
 
-    var suite = new Y.Test.Suite('labr-view-dragbehavior');
+    var suite = new Y.Test.Suite('{{title}}');
 
     suite.add(new Y.Test.Case({
         name: 'Automated Tests',
