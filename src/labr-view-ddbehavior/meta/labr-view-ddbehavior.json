@@ -1,0 +1,7 @@
+{
+    "labr-view-ddbehavior": {
+        "requires": [
+            "base", "dd-constrain", "dd-proxy", "dd-drop"
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "name"       : "labr-controller-app",
+    "displayName": "Gallery: labr-controller-app",
+    "description": "*Summary Goes Here*",
+    "author"     : [ "" ],
+    "use"        : [ "labr-controller-app" ],
+
+    "tags": [ "gallery" ],
+
+    "examples": []
+}

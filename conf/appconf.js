@@ -16,7 +16,7 @@ APP_config = {
 				dataRetrieve: {
 						location: 'los angeles, ca',
 						query: 'japanese',
-						count:5
+						count:10
 				}				
 			},
 			{
@@ -25,7 +25,7 @@ APP_config = {
 				dataRetrieve: {
 						location: 'los angeles, ca',
 						query: 'korean',
-						count:5
+						count:3
 				}				
 			}
 		]

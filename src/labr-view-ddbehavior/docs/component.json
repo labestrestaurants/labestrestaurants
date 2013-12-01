@@ -1,0 +1,11 @@
+{
+    "name"       : "labr-view-ddbehavior",
+    "displayName": "Gallery: labr-view-ddbehavior",
+    "description": "*Summary Goes Here*",
+    "author"     : [ "" ],
+    "use"        : [ "labr-view-ddbehavior" ],
+
+    "tags": [ "gallery" ],
+
+    "examples": []
+}

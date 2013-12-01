@@ -1,4 +1,31 @@
+.list-group-item{
+	cursor: pointer;
+}
 
-/**
- Your Code Goes Here
-*/
+.list-group-item:hover{
+	background: #FAFAFA;
+}
+
+.item-rating{
+	font-size: 10px;
+	margin-top: 2px;
+	margin-right: 13px;
+}
+
+.list-group-item span.list-group-item-text{
+	margin-left: 31px;
+	font-size: 90%;
+	margin-top: 15px;
+}
+
+.list-group-item span.distance{
+	font-size: 85%;
+	font-style: italic;
+	text-align: right;
+	margin-right: 16px;
+}
+
+.list-group-item h5{
+	font-weight: bold;
+	margin-bottom: 12px;
+}
