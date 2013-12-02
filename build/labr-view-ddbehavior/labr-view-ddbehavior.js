@@ -8,7 +8,7 @@ var NODE = 'node',
 	DRAG_NODE = 'dragNode',
 	DRAG_ELEMENT_CLASS_NAME = 'dragElementClassName',
 
-    MyDDBehavior =  Y.Base.create("labr-view-ddbehavior",  Y.Base, [], {
+    MyDDBehavior =  Y.Base.create('labr-view-ddbehavior',  Y.Base, [], {
 
     initializer: function (config) {
         var instance = this;
@@ -22,8 +22,8 @@ var NODE = 'node',
      * @return 
      */
     setupDragDrop: function (){
-    	var instance = this,
-    		lis = instance.get('draggableElements');
+		var instance = this,
+			lis = instance.get('draggableElements');
 
 		lis.each(function(v, k) {
 		    var dd = new Y.DD.Drag({
@@ -40,13 +40,12 @@ var NODE = 'node',
 		        constrain2node: instance.get('constrain2node')
 		    }).addHandle(instance.get('handle'));
 		});	
-    },
-
-    bind: function (){
+	},
+	bind: function (){
 		//Thanks to YUI Guys 
 		//http://yuilibrary.com/yui/docs/dd/list-drag.html example
-    	var instance = this,
-    		DDM = Y.DD.DDM;
+		var instance = this,
+			DDM = Y.DD.DDM;
 
 		DDM.on('drag:start', function(e) {
 		    //Get our drag object
@@ -116,13 +115,13 @@ var NODE = 'node',
               value:''
             },
             goingUp: {
-            	value: false
+				value: false
             },
             lastY: {
-            	value: 0
+				value: 0
             },
             dragElementClassName: {
-            	value: ''
+				value: ''
             }
         }
         

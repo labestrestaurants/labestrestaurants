@@ -4,7 +4,7 @@ Y.namespace('LAbr');
 
 var ATTR_CONTENTBOX = 'contentBox',
 
-	MyContainer = Y.Base.create("labr-view-container", Y.Widget, [Y.WidgetParent], {
+	MyContainer = Y.Base.create('labr-view-container', Y.Widget, [Y.WidgetParent], {
 
 		/**
 		 * Description
@@ -12,8 +12,7 @@ var ATTR_CONTENTBOX = 'contentBox',
 		 * @param {} config
 		 * @return 
 		 */
-		initializer: function (config) {
-			var instance = this;
+		initializer: function () {
 		},
 
 		CONTENT_TEMPLATE: '<div class="panel panel-default">' + '<div class="panel-heading">' + '<div class="drag-icon pull-left"></div>' + '<span class="tittle">Japanese Restaurants</span>' + '</div>' + '<ul class="list-group">' + '<li class="list-group-item loader"></li>' + '</ul>' + '</div>',
@@ -32,24 +31,11 @@ var ATTR_CONTENTBOX = 'contentBox',
 
 		/**
 		 * Description
-		 * @method bindUI
-		 * @return 
-		 */
-		bindUI: function () {
-			var instance = this,
-				contentBox = instance.get(ATTR_CONTENTBOX);
-		},
-
-		/**
-		 * Description
 		 * @method syncUI
 		 * @return 
 		 */
 		syncUI: function () {
-			var instance = this,
-				contentBox = instance.get(ATTR_CONTENTBOX);
-
-			instance.retrieveData();
+			this.retrieveData();
 		},
 
 		/**
@@ -87,8 +73,8 @@ var ATTR_CONTENTBOX = 'contentBox',
 				data;
 
 			//Testing in offline mode
-			// data = instance.parseData(APP_config.test_data);
-			// 	instance.renderChilds(data);
+			//data = instance.parseData(APP_config.test_data);
+			//instance.renderChilds(data);
 			Y.YQL(statement, {
 				allowCache: false,
 				timeout: 90000,
@@ -111,7 +97,7 @@ var ATTR_CONTENTBOX = 'contentBox',
 					 * @return 
 					 */
 					failure: function (r) {
-						console.log(r);
+						//TODO: Show some message to users
 					}
 				}
 			});
@@ -127,9 +113,9 @@ var ATTR_CONTENTBOX = 'contentBox',
 			var instance = this,
 				size = instance.size(),
 				i = 0;
-			for (var i = 0; i < size; i++) {
+			for (i; i < size; i++) {
 				instance.item(i).applyFilter(query);
-			};
+			}
 
 		},
 
@@ -141,53 +127,53 @@ var ATTR_CONTENTBOX = 'contentBox',
 		 */
 		parseData: function (data) {
 			var dataOut, schema = {
-				resultListLocator: "query.results.Result",
+				resultListLocator: 'query.results.Result',
 				resultFields: [{
-					key: "title",
-					locator: "Title"
+					key: 'title',
+					locator: 'Title'
 				}, {
-					key: "phone",
-					locator: "Phone"
+					key: 'phone',
+					locator: 'Phone'
 				}, {
-					key: "address",
-					locator: "Address"
+					key: 'address',
+					locator: 'Address'
 				}, {
-					key: "categories",
-					locator: "Categories.Category",
+					key: 'categories',
+					locator: 'Categories.Category',
 					parser: function (val) {
 						var result = '';
 						Y.each(val, function (item) {
-							result += item.content + ', '
+							result += item.content + ', ';
 						});
 						return result;
 					}
 				}, {
-					key: "distance",
-					locator: "Distance",
+					key: 'distance',
+					locator: 'Distance',
 					parser: function (val) {
 						return val + ' miles';
 					}
 				}, {
-					key: "latitude",
-					locator: "Latitude"
+					key: 'latitude',
+					locator: 'Latitude'
 				}, {
-					key: "longitude",
-					locator: "Longitude"
+					key: 'longitude',
+					locator: 'Longitude'
 				}, {
-					key: "rating",
-					locator: "Rating.AverageRating",
+					key: 'rating',
+					locator: 'Rating.AverageRating',
 					parser: function (val) {
 						return isNaN(val) ? -1 : +val;
 					}
 				}, {
-					key: "latestReview",
-					locator: "Rating.LastReviewIntro"
+					key: 'latestReview',
+					locator: 'Rating.LastReviewIntro'
 				}, {
-					key: "city",
-					locator: "City"
+					key: 'city',
+					locator: 'City'
 				}, {
-					key: "state",
-					locator: "State"
+					key: 'state',
+					locator: 'State'
 				}]
 			};
 

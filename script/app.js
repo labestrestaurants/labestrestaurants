@@ -3,14 +3,15 @@ Y.namespace('LAbr');
 
 	//Basic App Configurations
 	var App = {
-		CategoriesViews: {},
-		Maps: {
-			marker: {},
-			apiLoad: 0
+			CategoriesViews: {},
+			Maps: {
+				marker: {},
+				apiLoad: 0
+			},
+			AppController: {}
 		},
-		AppController: {}
-	},
-		categories = APP_config.categories,
+		APP_CONFIG = YUI_config.APP_CONFIG,
+		categories = APP_CONFIG.categories,
 		ac = new Y.AutoComplete({
 			inputNode: '#filter',
 			render: true
@@ -20,10 +21,9 @@ Y.namespace('LAbr');
 	/**
 	 * Description
 	 * @method init
-	 * @param {} config
 	 * @return 
 	 */
-	App.init = function (config) {
+	App.init = function () {
 		App.AppController = new Y.LAbr.AppController();
 		App.AppController.showRestaurantCategoriesAction(categories);
 
@@ -50,17 +50,17 @@ Y.namespace('LAbr');
 	 * @return 
 	 */
 	window.initializeGoogleApi = function () {
-		console.log('Google Maps Ready');
+		Y.log('Google Maps Ready');
 		App.Maps.apiLoad = 1;
-	}
+	};
 
 	//Filter Listeners
 	ac.on('query', function (e) {
 		App.AppController.filterItems(e.query);
 	});
 
-	ac.on('clear', function (e) {
-		App.AppController.filterItems('');
+	ac.on('clear', function () {
+			App.AppController.filterItems('');
 	});
 
 	App.mapsApiAsyncLoading();

@@ -1,9 +1,8 @@
 Y.namespace('LAbr');
 
-var ATTR_CONTENTBOX = 'contentBox',
-	ATTR_BOUNDINGBOX = 'boundingBox',
+var ATTR_BOUNDINGBOX = 'boundingBox',
 
-	MyItem = Y.Base.create("labr-view-item", Y.Widget, [Y.WidgetChild], {
+	MyItem = Y.Base.create('labr-view-item', Y.Widget, [Y.WidgetChild], {
 
 		/**
 		 * Description
@@ -69,7 +68,7 @@ var ATTR_CONTENTBOX = 'contentBox',
 					city: instance.get('city'),
 					state: instance.get('state'),
 					latestReview: instance.get('latestReview')
-				}
+				};
 				instance.fire('openitem', {
 					data: data
 				});
@@ -108,7 +107,8 @@ var ATTR_CONTENTBOX = 'contentBox',
 				categories = instance.get('categories'),
 				filtered = 0,
 				queryArray = [],
-				tempResult, inside, highLightItems = [];
+				inside,
+				highLightItems = [];
 
 			if (query === '') {
 				boundingBox.one('span.categories').set('innerHTML', categories);
@@ -158,7 +158,7 @@ var ATTR_CONTENTBOX = 'contentBox',
 				}
 
 				starHtml += '<span class="glyphicon ' + startType + '"></span>';
-			};
+			}
 
 			boundingBox.one('.item-rating').set('innerHTML', starHtml);
 
