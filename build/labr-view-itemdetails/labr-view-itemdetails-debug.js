@@ -2,10 +2,9 @@ YUI.add('labr-view-itemdetails', function (Y, NAME) {
 
 Y.namespace('LAbr');
 
-var ATTR_CONTENTBOX = 'contentBox',
-	ATTR_BOUNDINGBOX = 'boundingBox',
+var ATTR_BOUNDINGBOX = 'boundingBox',
 
-	MyItemDetails = Y.Base.create("labr-view-itemdetails", Y.Widget, [], {
+	MyItemDetails = Y.Base.create('labr-view-itemdetails', Y.Widget, [], {
 
 		/**
 		 * Description
@@ -42,13 +41,13 @@ var ATTR_CONTENTBOX = 'contentBox',
 		 */
 		renderUI: function () {
 			var instance = this,
-				contentBox = instance.get(ATTR_CONTENTBOX),
 				boundingBox = instance.get(ATTR_BOUNDINGBOX),
 				styles = instance.get('styles'),
 				subdetails = instance.get('subdetails'),
 				subdetailsNode = boundingBox.one('.item-details-subdetails'),
 				subdetailNode, hiddenSubDetails = instance.get('hiddenSubDetails'),
-				hiddenSubDetailsNode = boundingBox.one('.item-details-subdetails-hidden');
+				hiddenSubDetailsNode = boundingBox.one('.item-details-subdetails-hidden'),
+				htmlTemp;
 
 			if (styles) {
 				boundingBox.setStyles(styles);
@@ -101,8 +100,6 @@ var ATTR_CONTENTBOX = 'contentBox',
 		 * @return 
 		 */
 		syncUI: function () {
-			var instance = this,
-				boundingBox = instance.get(ATTR_BOUNDINGBOX);
 		},
 
 		/**

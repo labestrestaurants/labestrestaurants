@@ -1,15 +1,15 @@
 Y.namespace('LAbr');
 
 //shorthands
-var NODE = 'node',
-	INNER_HTML = 'innerHTML',
-	DRAG_NODE = 'dragNode',
-	DRAG_ELEMENT_CLASS_NAME = 'dragElementClassName',
+var BOUNDING_BOX = 'boundingBox',
+	PANELS_CONTAINER = '.panels-container',
+	APP_CONTAINER = '.app-container',
+	HIDDEN = 'hidden',
+	DISABLE = 'disable',
 
-	MyAppController = Y.Base.create("labr-controller-app", Y.Base, [], {
+	MyAppController = Y.Base.create('labr-controller-app', Y.Base, [], {
 
-		initializer: function (config) {
-			var instance = this;
+		initializer: function () {
 		},
 
 		/**
@@ -22,7 +22,7 @@ var NODE = 'node',
 			var instance = this,
 				views = Y.LAbr.App.CategoriesViews;
 			Y.each(categories, function (item) {
-				views[item.name] = new Y.LAbr.Container(item).render('.panels-container');
+				views[item.name] = new Y.LAbr.Container(item).render(PANELS_CONTAINER);
 			});
 			instance.DDCategories();
 		},
@@ -35,11 +35,11 @@ var NODE = 'node',
 		DDCategories: function () {
 			var dragConfig = {
 				draggableElements: Y.Node.all('.panel'),
-				constrain2node: '.panels-container',
+				constrain2node: PANELS_CONTAINER,
 				handle: '.drag-icon',
 				dragElementClassName: 'panel'
 			},
-				dragBehavior = new Y.LAbr.DDBehavior(dragConfig);
+			dragBehavior = new Y.LAbr.DDBehavior(dragConfig);
 		},
 
 		/**
@@ -64,22 +64,24 @@ var NODE = 'node',
 		restaurantShowDetailAction: function (e) {
 			var instance = this,
 				restaurantItemData = e.data,
-				currentItemWidget = e.currentTarget;
-			currentItemBoundingBox = currentItemWidget.get('boundingBox'), itemDetailInstance = Y.LAbr.App.ItemDetails;
+				currentItemWidget = e.currentTarget,
+				currentItemBoundingBox = currentItemWidget.get(BOUNDING_BOX),
+				itemDetailInstance = Y.LAbr.App.ItemDetails,
+				itemDetailBoundingBox;
 
 			restaurantItemData.styles = {
 				top: currentItemBoundingBox.getY() + currentItemWidget.get('heightX'),
 				left: currentItemBoundingBox.getX(),
 				display: 'block'
-			}
+			};
 
-			Y.one('.mask-inside').removeClass('hidden');
-			Y.one('.app-container').addClass('disable');
+			Y.one('.mask-inside').removeClass(HIDDEN);
+			Y.one(APP_CONTAINER).addClass(DISABLE);
 
 			if (itemDetailInstance) {
-				itemDetailBoundingBox = itemDetailInstance.get('boundingBox');
+				itemDetailBoundingBox = itemDetailInstance.get(BOUNDING_BOX);
 				itemDetailInstance.syncData(restaurantItemData);
-				itemDetailBoundingBox.removeClass('hidden');
+				itemDetailBoundingBox.removeClass(HIDDEN);
 				itemDetailBoundingBox.setStyles(restaurantItemData.styles);
 			} else {
 				instance.createRestaurantItemDetail(restaurantItemData);
@@ -123,8 +125,8 @@ var NODE = 'node',
 		 * @return 
 		 */
 		hideRestaurantDetailAction: function (e) {
-			Y.one('.mask-inside').addClass('hidden');
-			Y.one('.app-container').removeClass('disable');
+			Y.one('.mask-inside').addClass(HIDDEN);
+			Y.one(APP_CONTAINER).removeClass(DISABLE);
 		},
 
 		/**
@@ -139,15 +141,15 @@ var NODE = 'node',
 				var appMaps = Y.LAbr.App.Maps,
 					map = appMaps.map,
 					googleMaps = google.maps,
-					myLatlng = new googleMaps.LatLng(latLngValue[0], latLngValue[1]);
-				mapOptions = {
-					center: myLatlng,
-					zoom: 17,
-					mapTypeId: googleMaps.MapTypeId.ROADMAP
-				}, marker = appMaps.marker;
+					myLatlng = new googleMaps.LatLng(latLngValue[0], latLngValue[1]),
+					mapOptions = {
+						center: myLatlng,
+						zoom: 17,
+						mapTypeId: googleMaps.MapTypeId.ROADMAP
+					}, marker = appMaps.marker;
 
 				if (!map) {
-					map = new googleMaps.Map(document.getElementById("map_canvas"), mapOptions);
+					map = new googleMaps.Map(document.getElementById('map_canvas'), mapOptions);
 					marker = new googleMaps.Marker({
 						position: myLatlng,
 						map: map,
